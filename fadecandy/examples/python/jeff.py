@@ -1,8 +1,11 @@
 #!/usr/bin/python
 
-import time, random
-from . import opc
+import time, random, sys
+from os import path
 from functools import reduce
+
+sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+from . import opc
 
 
 BLOXL_HOST = 'localhost'
