@@ -65,7 +65,20 @@ class Bloxl(object):
 
         self.client = get_client()
 
+        self.height = NUMBER_ROWS
+        self.width = NUMBER_COLUMNS
+
         self.grid = [[SqBlox(rownum, colnum) for colnum in range(NUMBER_COLUMNS)] for rownum in range(NUMBER_ROWS)]
+
+    def iterate_squares(self):
+        for i in range(self.height):
+            for j in range(self.width):
+                yield self.grid[i][j]
+
+    def iterate_leds(self):
+        for sq in self.iterate_squares():
+            for led in sq.leds:
+                yield led
 
     def get_flat_pixels(self):
         return flatten_list([sq.get_pixels() for sq in flatten_list(self.grid)])
@@ -80,17 +93,17 @@ class Bloxl(object):
             delay(delay_after)
 
     def blanket_pixels(self, pixels=None, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
-        for led in self.leds:
+        for led in self.iterate_leds():
             led.set_pixels(pixels)
         self.display(display, delay_after, delay_before)
 
     def blanket_color(self, color, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
-        for led in self.leds:
+        for led in self.iterate_leds():
             led.set_color(color)
         self.display(display, delay_after, delay_before)
 
     def hide_all(self, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
-        for sq in self.grid:
+        for sq in self.iterate_leds():
             sq.hide()
         self.display(display, delay_after, delay_before)
 
