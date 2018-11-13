@@ -52,6 +52,14 @@ def wheel(WheelPos):
             return color
 
 
+def random_color():
+    return random.randint(33, 255)
+
+
+def random_pixels():
+    return wheel(random_color())
+
+
 def flatten_list(lst):
     return reduce(lambda x, y: x + y, lst)
 
@@ -103,9 +111,13 @@ class Bloxl(object):
         self.display(display, delay_after, delay_before)
 
     def hide_all(self, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
-        for sq in self.iterate_leds():
-            sq.hide()
+        for led in self.iterate_leds():
+            led.hide()
         self.display(display, delay_after, delay_before)
+
+    def random_all(self):
+        for led in self.iterate_leds():
+            led.random_color()
 
 
 class SqBlox(object):
@@ -127,6 +139,10 @@ class SqBlox(object):
     def blanket_color(self, color):
         for led in self.leds:
             led.set_color(color)
+
+    def blanket_random(self):
+        for led in self.leds:
+            led.random_color()
 
     def hide_all(self):
         for led in self.leds:
@@ -167,5 +183,8 @@ class LedBlox(object):
 
     def is_hidden(self):
         return self.pixels == HIDDEN_PIXEL
+
+    def random_color(self):
+        self.set_pixels(random_pixels())
 
 
