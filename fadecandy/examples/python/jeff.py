@@ -17,6 +17,7 @@ def get_client():
 
 
 NUMBER_LEDS = 800
+NUMBER_SQUARES = 200
 NUMBER_ROWS = 20
 NUMBER_COLUMNS = 10
 NUMBER_LEDS_PER_SQ = 4
@@ -87,6 +88,114 @@ class Bloxl(object):
         for sq in self.iterate_squares():
             for led in sq.leds:
                 yield led
+
+    SPIRAL = """
+    0   1   2   3   4   5   6   7   8   9
+                                        10
+                                        11
+                                        12
+                                        13
+                                        14 
+                                        15
+                                        16
+                                        17
+                                        18
+                                        19
+                                        20
+                                        21
+                                        22
+                                        23
+                                        24
+                                        25
+                                        26
+                                        27
+    37  36  35  34  33  32  31  30  29  28
+    """
+
+    def max_x_coordinate(self):
+        return self.width-1
+
+    def max_y_coordinate(self):
+        return self.height - 1
+
+    def step_right(self, x, y, max_x=None):
+        if not max_x:
+            max_x = self.max_x_coordinate()
+        if x >= max_x:
+            return None
+        return x+1, y
+
+    def step_left(self, x, y, min_x=None):
+        if not min_x:
+            min_x = 0
+        if x <= min_x:
+            return None
+        return x-1, y
+
+    def step_down(self, x, y, max_y=None):
+        if not max_y:
+            max_y = self.max_y_coordinate()
+        if y >= max_y:
+            return None
+        return x, y+1
+
+    def step_up(self, x, y, min_y):
+        if not min_y:
+            min_y = 0
+        if x <= min_y:
+            return None
+        return x, y-1
+
+    def can_step_up(self, x, y):
+        return self.step_up(x, y) is not None
+
+    def can_step_down(self, x, y):
+        return self.step_down(x, y) is not None
+
+    def can_step_left(self, x, y):
+        return self.step_left(x, y) is not None
+
+    def can_step_right(self, x, y):
+        return self.step_right(x, y) is not None
+
+    def spiral(self):
+
+        x = 0
+        y = 0
+        number_steps = 0
+
+        filled_rows_top = 0
+        filled_rows_right = 0
+        filled_rows_bottom = 0
+        filled_rows_left = 0
+
+        while number_steps < NUMBER_SQUARES:
+
+            while self.can_step_right(x, y):
+                yield (x, y)
+                x, y = self.step_right(x, y)
+                number_steps += 1
+            filled_rows_top += 1
+
+            while self.can_step_down(x, y):
+                yield (x, y)
+                x, y = self.step_down(x, y)
+                number_steps += 1
+            filled_rows_right += 1
+
+            while self.can_step_left(x, y):
+                yield (x, y)
+                x, y = self.step_left(x, y)
+                number_steps += 1
+            filled_rows_bottom += 1
+
+
+            while self.can_step_up(x, y):
+                yield (x, y)
+                x, y = self.step_up(x, y)
+                number_steps += 1
+            filled_rows_left += 1
+
 
     def get_flat_pixels(self):
         return flatten_list([sq.get_pixels() for sq in flatten_list(self.grid)])
