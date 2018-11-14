@@ -244,7 +244,7 @@ class Bloxl(object):
             filled_rows_left += 1
 
     def put_pixels(self):
-        client.put_pixels(self.bloxl.get_flat_pixels())
+        client.put_pixels(self.get_flat_pixels())
 
     def get_flat_pixels(self):
         return flatten_list([sq.get_pixels() for sq in flatten_list(self.grid)])
