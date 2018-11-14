@@ -255,17 +255,14 @@ class Bloxl(object):
     def blanket_pixels(self, pixels=None, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
         for led in self.iterate_leds():
             led.set_pixels(pixels)
-        self.display(display, delay_after, delay_before)
 
     def blanket_color(self, color, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
         for led in self.iterate_leds():
             led.set_color(color)
-        self.display(display, delay_after, delay_before)
 
     def hide_all(self, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
         for led in self.iterate_leds():
             led.hide()
-        self.display(display, delay_after, delay_before)
 
     def random_all(self):
         for led in self.iterate_leds():
