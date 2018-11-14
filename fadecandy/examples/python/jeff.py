@@ -16,6 +16,9 @@ def get_client():
     return opc.Client('{0}:{1}'.format(BLOXL_HOST, BLOXL_PORT))
 
 
+client = get_client()
+
+
 NUMBER_LEDS = 800
 NUMBER_SQUARES = 200
 NUMBER_LEDS_PER_SQ = 4
@@ -80,8 +83,6 @@ class Bloxl(object):
 
     def __init__(self):
 
-        self.client = get_client()
-
         self.height = NUMBER_ROWS
         self.width = NUMBER_COLUMNS
         self.max_x_coordinate = self.width - 1
@@ -103,29 +104,6 @@ class Bloxl(object):
         for sq in self.iterate_squares():
             for led in sq.leds:
                 yield led
-
-    SPIRAL = """
-    0   1   2   3   4   5   6   7   8   9
-                                        10
-                                        11
-                                        12
-                                        13
-                                        14 
-                                        15
-                                        16
-                                        17
-                                        18
-                                        19
-                                        20
-                                        21
-                                        22
-                                        23
-                                        24
-                                        25
-                                        26
-                                        27
-    37  36  35  34  33  32  31  30  29  28
-    """
 
     def get_random_coordinate_x(self):
         return random.randint(0, self.max_x_coordinate)
@@ -266,7 +244,7 @@ class Bloxl(object):
             filled_rows_left += 1
 
     def put_pixels(self):
-        self.client.put_pixels(self.bloxl.get_flat_pixels())
+        client.put_pixels(self.bloxl.get_flat_pixels())
 
     def get_flat_pixels(self):
         return flatten_list([sq.get_pixels() for sq in flatten_list(self.grid)])
@@ -292,6 +270,10 @@ class Bloxl(object):
     def random_all(self):
         for led in self.iterate_leds():
             led.random_color()
+
+
+def blank_bloxl():
+    return Bloxl()
 
 
 class SqBlox(object):
@@ -364,49 +346,263 @@ class LedBlox(object):
 
 class PixelChange(object):
 
-    def __init__(self, coord_x, coord_y, color=None, pixels=None):
+    def __init__(self, coord_x, coord_y, grid_type='squares', color=None, pixels=None, hide=False):
+        """
+        Grid type is squares or leds
+        """
         self.coord_x = coord_x
         self.coord_y = coord_y
+        self.grid_type = grid_type
         self.color = color
         self.pixels = pixels
         self.hide = hide
 
 
-def hidden_pixel_change(coord_x=None, coord_y=None):
-    coord_x, coord_y = pick_random_coord_if_none(coord_x, coord_y)
+def hidden_pixel_change(coord_x, coord_y):
     return PixelChange(coord_x, coord_y, HIDDEN_PIXEL)
 
 
-def random_pixel_change(coord_x, coord_y):
+def random_pixel_color_change(coord_x, coord_y, color=None):
+    if color is None:
+        color = random_color()
+    return PixelChange(coord_x, coord_y, color)
 
 
+def random_bloxl_led_position_color_change(bloxl, color=None):
+    if color is None:
+        color = random_color()
+    coord_x, coord_y = bloxl.random_coord()
+    return PixelChange(coord_x, coord_y, color)
 
-class PixelChanges(object):
 
+class LEDShape(object):
     def __init__(self, pixels_to_update):
         self.pixels_to_update = pixels_to_update
+        self.shape_type = 'leds'
+
+    def iterate_pixels(self, repeat_sequence=False):
+        for pixel in self.pixels_to_update:
+            yield pixel
+        if repeat_sequence:
+            while True:
+                for pixel in self.pixels_to_update:
+                    yield pixel
+
+    def iterate_coordinates(self, repeat_sequence=False):
+        for pixel in self.iterate_pixels(repeat_sequence):
+            yield pixel.coord_x, pixel.coord_y
 
 
+class SquaresShape(LEDShape):
+    def __init__(self, pixels_to_update):
+        self.pixels_to_update = pixels_to_update
+        self.shape_type = 'squares'
 
+
+class ColorSequence(object):
+
+    def __init__(
+            self, starting_color=HIDDEN_PIXEL, use_to_sequence='function', auto_wheel=False,
+            repeat_sequence=False):
+        self.starting_color = starting_color
+        self.current_color = starting_color
+        self.use_to_sequecne = use_to_sequence
+        self.position_sequence = -1
+        self.auto_wheel = auto_wheel
+        self.repeat_sentence = repeat_sequence
+
+    def color_sequence(self):
+        return []
+
+    def get_next_color(self, color):
+        return color
+
+    def next_color_in_sequence(self):
+        self.position_sequence += 1
+        if self.use_to_sequecne == 'function':
+            next_color = self.get_next_color(self.current_color)
+            if next_color:
+                return self.get_next_color(self.current_color)
+        if self.use_to_sequecne == 'sequence':
+            seq = self.color_sequence()
+            if self.position_sequence < len(seq):
+                return seq[self.position_sequence]
+            if self.repeat_sentence:
+                return seq[len(seq) % self.position_sequence]
+        return None
+
+    def get_color_representation(self, col=None):
+        col = self.current_color
+        if self.auto_wheel:
+            return wheel(col)
+        return col
+
+    def iterate_colors(self):
+        yield self.get_color_representation()
+        has_next_color = True
+        while has_next_color:
+            next_color = self.next_color_in_sequence()
+            if next_color:
+                yield next_color
+            else:
+                has_next_color = False
 
 
 class BloxlUpdate(object):
 
-    def __init__(self, bloxl, pixel_changes, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
+    def __init__(self, bloxl=None, led_changes=None, square_changes=None, display=True, delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
 
         self.bloxl = bloxl
-        self.pixel_changes = pixel_changes
+        if not bloxl:
+            self.bloxl = blank_bloxl()
+        self.led_changes = led_changes
+        self.square_changes = square_changes
         self.display = display
         self.delay_after = delay_after
         self.delay_before = delay_before
 
+    def apply_bloxl_changes(self):
+        if self.led_changes:
+            for led_change in self.led_changes:
+                pixels = led_change.pixels
+                if pixels:
+                    self.bloxl.set_led_pixels(led_change.pixels, led_change.coord_x, led_change.coord_y)
+                else:
+                    color = led_change.color
+                    if color:
+                        self.bloxl.set_led_pixels(wheel(color))
+        if self.square_changes:
+            for square_change in self.square_changes:
+                pixels = square_change.pixels
+                if pixels:
+                    self.bloxl.set_square_pixels(led_change.pixels, led_change.coord_x, led_change.coord_y)
+                else:
+                    color = led_change.color
+                    if color:
+                        self.bloxl.set_square_pixels(wheel(color))
+
     def display(self):
 
         if self.delay_before:
-            delay(delay_before)
+            delay(self.delay_before)
+
+        self.apply_bloxl_changes()
 
         if self.display:
             self.bloxl.put_pixels()
 
         if self.delay_after:
-            delay(delay_after)
+            delay(self.delay_after)
+
+
+class BloxlUpdateSequence(object):
+
+    def __init__(self, bloxl_update_initial=None, display=True,
+                 delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE):
+        self.bloxl_update_initial = bloxl_update_initial
+        if not self.bloxl_update_initial:
+            starting_bloxl_state = self.get_starting_bloxl_state()
+            if starting_bloxl_state:
+                self.bloxl_update_initial = BloxlUpdate(
+                    bloxl=starting_bloxl_state,
+                    display=display,
+                    delay_before=delay_before,
+                    delay_after=delay_after
+                )
+
+        self.current_bloxl_update = None
+        self.bloxl_updates = []
+        if self.bloxl_update_initial:
+            self.current_bloxl_update = self.bloxl_update_initial
+            self.bloxl_updates = [bloxl_update_initial]
+
+        self.sequence_number = 0
+
+        self.display = display
+        self.delay_after = delay_after
+        self.delay_before = delay_before
+
+        self.color_sequence = None
+
+    def get_starting_bloxl_state(self):
+        return blank_bloxl()
+
+    def bloxl_transformer(self):
+        return self.get_current_bloxl()
+
+    def get_current_bloxl(self):
+        return self.current_bloxl_update.bloxl
+
+    def get_next_bloxl_update(self):
+        next_bloxl_update=self.bloxl_transformer()
+        if next_bloxl_update:
+            return BloxlUpdate(
+                bloxl=next_bloxl_update,
+                display=self.display,
+                delay_before=self.delay_before,
+                delay_after=self.delay_after
+            )
+        return None
+
+    def yield_sequence(self):
+        if self.current_bloxl_update:
+            yield self.current_bloxl_update
+        updating = True
+        while updating:
+            next_update = self.get_next_bloxl_update()
+            if next_update:
+                yield self.current_bloxl_update
+            else:
+                updating = False
+
+    def display_sequence(self, max_time=None):
+        if not max_time:
+            max_time = 100000000000
+        t_end = time.time() + max_time
+        for bloxl_update in self.yield_sequence():
+            if time.time() > t_end:
+                return 'Time Up'
+            bloxl_update.display()
+        return 'Sequence Over'
+
+
+class BlanketColorSequence(BloxlUpdateSequence):
+
+    def get_starting_bloxl_state(self):
+
+        if self.color_sequence:
+
+            b = Bloxl()
+            b.blanket_color(self.get_color_sequence().starting_color)
+            return b
+
+    def bloxl_transformer(self):
+
+        if self.color_sequence:
+
+            next_color = self.color_sequence.get_next_color()
+            if next_color:
+                b = self.get_current_bloxl()
+                b.blanket_color(next_color)
+                return b
+
+class FadingColorSequence(ColorSequence):
+
+    def get_next_color(self, color):
+        if color >= WHEEL_MAXIMUM:
+            return 0
+        return color + 1
+
+
+def get_fading_color_sequence(starting_color=0):
+    return FadingColorSequence(
+        starting_color=starting_color,
+        auto_wheel=True,
+        repeat_sequence=True
+    )
+
+
+def fading_bloxl_update_sequence():
+    seq = BlanketColorSequence()
+    seq.color_sequence = get_fading_color_sequence(0)
+    return seq
