@@ -678,3 +678,8 @@ def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL):
     return BlanketColorSequence(
         color_sequences=[get_fading_color_sequence(starting_color)]
     )
+
+
+b = get_bloxl()
+b.random_all()
+b.set_pixels()
