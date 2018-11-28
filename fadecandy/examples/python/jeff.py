@@ -143,6 +143,22 @@ class Bloxl(object):
         """
         return self.pick_random_coord_if_none()
 
+    def get_sqs_at_coords(self, coords=[]):
+        return [self.get_sq_at_coord(x, y) for x, y in coords]
+
+    def get_led_at_coords(self, coords=[]):
+        return [self.get_led_at_coord(x, y) for x, y in coords]
+
+    def upper_left_square(self):
+        self.get_sqs_at_coords([(0, 0), (1, 0), (0, 1), (1, 1)])
+
+    def upper_left_square_leds(self):
+        self.get_leds_at_coords([[(x, y) for y in range(4)] for x in range(4)])
+
+    def random_square(self):
+        x, y = self.random_coord()
+        return self.get_sq_at_coord(x, y)
+
     def get_random_led_coordinate_x(self):
         return random.randint(0, self.leds_max_x_coordinate)
 
@@ -158,6 +174,10 @@ class Bloxl(object):
 
     def random_led_coord(self):
         return self.pick_random_coord_if_none()
+
+    def random_led(self):
+        x, y = self.random_led_coord()
+        return self.get_led_at_coord(x, y)
 
     def put_pixels(self):
         client.put_pixels(self.get_flat_pixels())
