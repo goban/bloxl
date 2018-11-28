@@ -53,6 +53,7 @@ WHEEL_DIVISIONS = [85, 170]
 
 
 def wheel(WheelPos):
+    print(WheelPos)
     if WheelPos < WHEEL_DIVISIONS[0]:
         color = ((WheelPos * 3), (WHEEL_MAXIMUM - WheelPos * 3), 0)
     else:
@@ -146,7 +147,7 @@ class Bloxl(object):
     def get_sqs_at_coords(self, coords=[]):
         return [self.get_sq_at_coord(x, y) for x, y in coords]
 
-    def get_led_at_coords(self, coords=[]):
+    def get_leds_at_coords(self, coords=[]):
         return [self.get_led_at_coord(x, y) for x, y in coords]
 
     def upper_left_square(self):
@@ -357,7 +358,7 @@ class LedBlox(object):
     def set_color(self, color=None):
         if color:
             self.color_val = color
-            self.set_pixels(wheel(color))
+            self.set_pixels(color)
 
     def set_pixels(self, pixels=None):
         if pixels:
@@ -555,6 +556,7 @@ class BloxlUpdateSequence(object):
             delay_after=DEFAULT_DELAY, delay_before=DEFAULT_DELAY_BEFORE, default_display_time=100000,
             color_sequences=[], squares_shapes=[], leds_shapes=[]
     ):
+        self.color_sequences = color_sequences
         self.bloxl_update_initial = bloxl_update_initial
         if not self.bloxl_update_initial:
             starting_bloxl_state = self.get_starting_bloxl_state()
@@ -580,7 +582,6 @@ class BloxlUpdateSequence(object):
 
         self.default_display_time = default_display_time
 
-        self.color_sequences = color_sequences
         self.squares_shapes = squares_shapes
         self.leds_shapes = leds_shapes
 
@@ -611,7 +612,8 @@ class BloxlUpdateSequence(object):
         while updating:
             next_update = self.get_next_bloxl_update()
             if next_update:
-                yield self.current_bloxl_update
+                self.current_bloxl_update = next_update
+                yield next_update
             else:
                 updating = False
 
@@ -620,12 +622,11 @@ class BloxlUpdateSequence(object):
             max_time = self.default_display_time
         t_end = time.time() + max_time
         for bloxl_update in self.yield_sequence():
+            print(bloxl_update)
+            self.current_bloxl_update = bloxl_update
             if time.time() > t_end:
                 return 'Time Up'
-            if bloxl_update:
-                bloxl_update.display()
-            else:
-                return 'Sequence Over'
+            bloxl_update.display()
         return 'Sequence Over'
 
     def get_color_sequence(self):
@@ -643,12 +644,12 @@ class BlanketColorSequence(BloxlUpdateSequence):
 
     def bloxl_transformer(self):
         seq = self.get_color_sequence()
+        b = self.get_current_bloxl()
         if seq:
             next_color = seq.get_next_color()
             if next_color:
-                b = self.get_current_bloxl()
                 b.blanket_color(next_color)
-                return b
+        return b
 
 
 class FadingColorSequence(ColorSequence):
@@ -675,6 +676,9 @@ def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL, step_value=1):
     )
 
 
+def test_func():
+    f = fading_bloxl_update_sequence()
+    f.display_sequence()
 
 
     '''
