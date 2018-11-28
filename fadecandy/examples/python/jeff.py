@@ -680,6 +680,4 @@ def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL):
     )
 
 
-b = Bloxl()
-b.random_all()
-b.put_pixels()
+
