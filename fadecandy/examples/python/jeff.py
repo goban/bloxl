@@ -444,13 +444,14 @@ class ColorSequence(object):
 
     def __init__(
             self, starting_color=HIDDEN_PIXEL, use_to_sequence='function', auto_wheel=False,
-            repeat_sequence=False):
+            repeat_sequence=False, step_value=1):
         self.starting_color = starting_color
         self.current_color = starting_color
         self.use_to_sequecne = use_to_sequence
         self.position_sequence = -1
         self.auto_wheel = auto_wheel
         self.repeat_sentence = repeat_sequence
+        self.step_value = step_value
 
     def color_sequence(self):
         return []
@@ -666,17 +667,18 @@ class FadingColorSequence(ColorSequence):
         return color + step_value
 
 
-def get_fading_color_sequence(starting_color=HIDDEN_PIXEL):
+def get_fading_color_sequence(starting_color=HIDDEN_PIXEL, step_value=1):
     return FadingColorSequence(
         starting_color=starting_color,
         auto_wheel=True,
-        repeat_sequence=True
+        repeat_sequence=True,
+        step_value=step_value
     )
 
 
-def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL):
+def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL, step_value=1):
     return BlanketColorSequence(
-        color_sequences=[get_fading_color_sequence(starting_color)]
+        color_sequences=[get_fading_color_sequence(starting_color, step_value)]
     )
 
 
