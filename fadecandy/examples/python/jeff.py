@@ -206,7 +206,7 @@ class Bloxl(object):
 
     def legal_led_coord(self, x=0, y=0, max_x=None, max_y=None, min_x=None, min_y=None):
         if x < 0 or y < 0 or x > self.leds_max_x_coordinate or y > self.leds_max_y_coordinate or \
-                x > max_x or y > max_y or x < min_x or y < min_y:
+                (max_x and x > max_x) or (max_y and y > max_y) or (min_x and x < min_x) or (min_y and y < min_y):
             return False
         return True
 
@@ -223,7 +223,7 @@ class Bloxl(object):
 
     def legal_sq_coord(self, x=0, y=0, max_x=None, max_y=None, min_x=None, min_y=None):
         if x < 0 or y < 0 or x > self.max_x_coordinate or y > self.max_y_coordinate or \
-                x > max_x or y > max_y or x < min_x or y < min_y:
+                (max_x and x > max_x) or (max_y and y > max_y) or (min_x and x < min_x) or (min_y and y < min_y):
             return False
         return True
 
