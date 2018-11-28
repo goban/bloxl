@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import opc, time, random, PIL, numpy, os, os.path
+import glob
 from PIL import Image
 from numpy import array
 numLEDs = 800
@@ -38,45 +39,39 @@ clearall = [ (0, 0, 0)] * numLEDs
 pixels = [ (0,0,0) ] * numLEDs * 2
 
 def BlockImages(loopcount):
-
 	for q in range(loopcount):
-		MorphImages = []
-		NumFiles = len([name for name in os.listdir('./morph') if os.path.isfile(name)])
-		print(NumFiles)
-		for i in range(48):
-			MorphImages.append("./morph/morph"+str(i)+".jpg")
-		print(MorphImages)
-		for picture in range(len(MorphImages)):
-			img = Image.open(MorphImages[picture])
-			arr = array(img)
-			print('arr')
-			print(arr)
-			print()
-			print('grid')
-			print(grid)
-			print()
-			print('bloxes')
-			print(bloxes)
-			print()
-			pixels = [ (0,0,0) ] * numLEDs
-			for e in range(4):
-				for t in range(10):
-					for u in range(20):
-						#print('t: {0}'.format(t))
-						#print('u: {0}'.format(u))
-						#print('e: {0}'.format(e))
-						
-						#print('gridpos: {0}'.format(gridpos))
-						#print('bloxespos: {0}'.format(bloxespos))
-						gridpos = grid[t][u]
-						bloxespos = bloxes[gridpos][e]
-						pixels[bloxespos] = arr[t][u]
-			
-			print('pixels')
-			print(bloxes)
-			print('###########################')
-			client.put_pixels(pixels)
-			time.sleep(2)
+        for filepath in glob.iglob('morph/*.jpg'):
+            img = Image.open(filepath)
+            arr = array(img)
+
+            print('arr')
+            print(arr)
+            print()
+            print('grid')
+            print(grid)
+            print()
+            print('bloxes')
+            print(bloxes)
+            print()
+            pixels = [ (0,0,0) ] * numLEDs
+            for e in range(4):
+                for t in range(10):
+                    for u in range(20):
+                        #print('t: {0}'.format(t))
+                        #print('u: {0}'.format(u))
+                        #print('e: {0}'.format(e))
+
+                        #print('gridpos: {0}'.format(gridpos))
+                        #print('bloxespos: {0}'.format(bloxespos))
+                        gridpos = grid[t][u]
+                        bloxespos = bloxes[gridpos][e]
+                        pixels[bloxespos] = arr[t][u]
+
+            print('pixels')
+            print(bloxes)
+            print('###########################')
+            client.put_pixels(pixels)
+            time.sleep(2)
 
 
 def Narrrloop2(loopcount):
