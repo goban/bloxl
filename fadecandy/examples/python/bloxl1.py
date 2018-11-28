@@ -287,10 +287,10 @@ def wheel(WheelPos):
 def run_pattern():
     for i in range(0, 10000):
         BlockImages(500)
-        Treeloop(1000)
-        Narrrloop2(1000)
-        Narrrloop(1000)
-        blox0(1000)
+        #Treeloop(1000)
+        #Narrrloop2(1000)
+        #Narrrloop(1000)
+        #blox0(1000)
 
 
 run_pattern()
