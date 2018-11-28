@@ -1,0 +1,8 @@
+tmp
+venv
+venv3
+**/__pycache__/*
+**/*.pyc
+*.pyc
+*.env
+/.vscode
