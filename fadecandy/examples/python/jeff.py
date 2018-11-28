@@ -37,7 +37,7 @@ LONGER_DELAY = 0.8
 LONGEST_DELAY = 1.5
 
 DEFAULT_DELAY_BEFORE = None
-DEFAULT_DELAY = SHORT_DELAY
+DEFAULT_DELAY = None
 
 
 def delay(t=None):
@@ -64,7 +64,7 @@ def wheel(WheelPos):
             return color
 
 
-RANDOM_COLOR_MINIMUM = 33
+RANDOM_COLOR_MINIMUM = 1
 RANDOM_COLOR_MAXIMUM = 255
 
 
@@ -92,8 +92,8 @@ class Bloxl(object):
         self.max_x_coordinate = self.width - 1
         self.max_y_coordinate = self.height - 1
 
-        self.leds_height = self.height * 2
-        self.leds_width = self.width * 2
+        self.leds_height = self.height * (number_leds_per_sq / 2)
+        self.leds_width = self.width * (number_leds_per_sq / 2)
         self.leds_max_x_coordinate = self.leds_width - 1
         self.leds_max_y_coordinate = self.leds_height - 1
 
@@ -133,6 +133,9 @@ class Bloxl(object):
         return coord_x, coord_y
 
     def random_coord(self):
+        """
+        Get a random square
+        """
         return self.pick_random_coord_if_none()
 
     def get_random_led_coordinate_x(self):
@@ -375,6 +378,9 @@ class LedBlox(object):
 
     def random_color(self):
         self.set_pixels(random_pixels())
+
+    def __str__(self):
+        return str(self.color_val)
 
 
 class PixelChange(object):
@@ -650,13 +656,14 @@ class BlanketColorSequence(BloxlUpdateSequence):
                 b.blanket_color(next_color)
                 return b
 
+
 class FadingColorSequence(ColorSequence):
 
-    def get_next_color(self):
+    def get_next_color(self, step_value=1):
         color = self.current_color
         if color >= WHEEL_MAXIMUM:
-            return 0
-        return color + 1
+            return RANDOM_COLOR_MINIMUM
+        return color + step_value
 
 
 def get_fading_color_sequence(starting_color=HIDDEN_PIXEL):
@@ -667,7 +674,7 @@ def get_fading_color_sequence(starting_color=HIDDEN_PIXEL):
     )
 
 
-def fading_bloxl_update_sequence():
+def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL):
     return BlanketColorSequence(
-        color_sequences=[get_fading_color_sequence()]
+        color_sequences=[get_fading_color_sequence(starting_color)]
     )
