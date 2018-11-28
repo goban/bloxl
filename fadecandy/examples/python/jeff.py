@@ -101,6 +101,7 @@ class Bloxl(object):
         self.number_leds_per_sq = number_leds_per_sq
         self.square_number_rows = square_number_rows
         self.square_led_divisor = self.number_leds_per_sq // self.square_number_rows
+        self.number_leds_per_row = self.width * square_number_rows
 
         self.grid = [
             [
@@ -119,6 +120,9 @@ class Bloxl(object):
         for sq in self.iterate_squares():
             for led in sq.leds:
                 yield led
+
+    def all_leds(self):
+        return [l for l in self.iterate_leds()]
 
     def get_random_coordinate_x(self):
         return random.randint(0, self.max_x_coordinate)
@@ -154,46 +158,6 @@ class Bloxl(object):
 
     def random_led_coord(self):
         return self.pick_random_coord_if_none()
-
-    '''
-    def spiral(self):
-
-        x = 0
-        y = 0
-        number_steps = 0
-
-        filled_rows_top = 0
-        filled_rows_right = 0
-        filled_rows_bottom = 0
-        filled_rows_left = 0
-
-        while number_steps < NUMBER_SQUARES:
-
-            while self.can_step_right(x, y):
-                yield (x, y)
-                x, y = self.step_right(x, y)
-                number_steps += 1
-            filled_rows_top += 1
-
-            while self.can_step_down(x, y):
-                yield (x, y)
-                x, y = self.step_down(x, y)
-                number_steps += 1
-            filled_rows_right += 1
-
-            while self.can_step_left(x, y):
-                yield (x, y)
-                x, y = self.step_left(x, y)
-                number_steps += 1
-            filled_rows_bottom += 1
-
-
-            while self.can_step_up(x, y):
-                yield (x, y)
-                x, y = self.step_up(x, y)
-                number_steps += 1
-            filled_rows_left += 1
-    '''
 
     def put_pixels(self):
         client.put_pixels(self.get_flat_pixels())
@@ -277,6 +241,13 @@ class Bloxl(object):
 
     def step_led_up(self, x, y, min_y=0):
         return self.get_led_at_coord(x, y-1, min_y=min_y)
+
+    def print_repr(self):
+        x = 0
+        for led in self.iterate_leds():
+            print(led.str_repr(), end='')
+            if x % self.number_leds_per_row == 0:
+                print()
 
 
 def get_bloxl(bloxl):
@@ -380,7 +351,7 @@ class LedBlox(object):
     def random_color(self):
         self.set_pixels(random_pixels())
 
-    def __str__(self):
+    def str_repr(self):
         return color(' ', fore='white', back=self.pixels)
 
 
@@ -684,3 +655,43 @@ def fading_bloxl_update_sequence(starting_color=HIDDEN_PIXEL, step_value=1):
 
 
 
+
+    '''
+    def spiral(self):
+
+        x = 0
+        y = 0
+        number_steps = 0
+
+        filled_rows_top = 0
+        filled_rows_right = 0
+        filled_rows_bottom = 0
+        filled_rows_left = 0
+
+        while number_steps < NUMBER_SQUARES:
+
+            while self.can_step_right(x, y):
+                yield (x, y)
+                x, y = self.step_right(x, y)
+                number_steps += 1
+            filled_rows_top += 1
+
+            while self.can_step_down(x, y):
+                yield (x, y)
+                x, y = self.step_down(x, y)
+                number_steps += 1
+            filled_rows_right += 1
+
+            while self.can_step_left(x, y):
+                yield (x, y)
+                x, y = self.step_left(x, y)
+                number_steps += 1
+            filled_rows_bottom += 1
+
+
+            while self.can_step_up(x, y):
+                yield (x, y)
+                x, y = self.step_up(x, y)
+                number_steps += 1
+            filled_rows_left += 1
+    '''
