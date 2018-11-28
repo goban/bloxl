@@ -3,9 +3,12 @@
 import time, random, sys
 from os import path
 from functools import reduce
+from unidecode import unidecode
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import opc
+
+from colr import color
 
 
 BLOXL_HOST = 'localhost'
@@ -52,16 +55,14 @@ WHEEL_DIVISIONS = [85, 170]
 def wheel(WheelPos):
     if WheelPos < WHEEL_DIVISIONS[0]:
         color = ((WheelPos * 3), (WHEEL_MAXIMUM - WheelPos * 3), 0)
-        return color
     else:
         if WheelPos < WHEEL_DIVISIONS[1]:
             WheelPos -= WHEEL_DIVISIONS[0]
             color = ((WHEEL_MAXIMUM - WheelPos * 3), 0, (WheelPos * 3))
-            return color
         else:
             WheelPos -= WHEEL_DIVISIONS[1]
             color = (0, (WheelPos * 3), (WHEEL_MAXIMUM - WheelPos * 3))
-            return color
+    return color
 
 
 RANDOM_COLOR_MINIMUM = 1
@@ -380,7 +381,7 @@ class LedBlox(object):
         self.set_pixels(random_pixels())
 
     def __str__(self):
-        return str(self.color_val)
+        return color(' ', fore='white', back=self.pixels)
 
 
 class PixelChange(object):
