@@ -248,6 +248,7 @@ class Bloxl(object):
             print(led.str_repr(), end='')
             if x % self.number_leds_per_row == 0:
                 print()
+            x += 1
 
 
 def get_bloxl(bloxl):
