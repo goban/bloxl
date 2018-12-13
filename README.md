@@ -1,1 +1,3 @@
-# led-wall
+# Bloxl
+
+Containing fadecandy and Bloxl code

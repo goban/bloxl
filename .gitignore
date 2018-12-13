@@ -6,3 +6,4 @@ venv3
 *.pyc
 *.env
 /.vscode
+.idea/workspace.xml
