@@ -40,7 +40,7 @@ LONGER_DELAY = 0.8
 LONGEST_DELAY = 1.5
 
 DEFAULT_DELAY_BEFORE = None
-DEFAULT_DELAY = None
+DEFAULT_DELAY = SHORT_DELAY
 
 
 def delay(t=None):
@@ -54,7 +54,6 @@ WHEEL_DIVISIONS = [85, 170]
 
 def wheel(WheelPos):
     if not WheelPos:
-        pass
         # print(WheelPos)
         return HIDDEN_PIXEL
     if WheelPos < WHEEL_DIVISIONS[0]:
@@ -89,19 +88,18 @@ class Bloxl(object):
 
     def __init__(
             self, height=NUMBER_ROWS, width=NUMBER_COLUMNS,
-            number_leds_per_sq=NUMBER_LEDS_PER_SQ, square_number_rows=NUMBER_ROWS_SQUARE,
-            hide=True
+            number_leds_per_sq=NUMBER_LEDS_PER_SQ, square_number_rows=NUMBER_ROWS_SQUARE, hide_grid=False
     ):
 
         self.height = height
         self.width = width
-        self.max_x_coordinate = self.width - 1
-        self.max_y_coordinate = self.height - 1
+        self.max_x_coordinate = self.height - 1
+        self.max_y_coordinate = self.width - 1
 
-        self.leds_height = self.height * (number_leds_per_sq / 2)
-        self.leds_width = self.width * (number_leds_per_sq / 2)
-        self.leds_max_x_coordinate = self.leds_width - 1
-        self.leds_max_y_coordinate = self.leds_height - 1
+        self.leds_height = self.height * (number_leds_per_sq // 2)
+        self.leds_width = self.width * (number_leds_per_sq // 2)
+        self.leds_max_x_coordinate = self.leds_height - 1
+        self.leds_max_y_coordinate = self.leds_width - 1
 
         self.number_leds_per_sq = number_leds_per_sq
         self.square_number_rows = square_number_rows
@@ -116,7 +114,7 @@ class Bloxl(object):
             ] for rownum in range(NUMBER_ROWS)
         ]
 
-        if hide:
+        if hide_grid:
             self.hide_all()
             self.put_pixels()
 
@@ -129,6 +127,9 @@ class Bloxl(object):
         for sq in self.iterate_squares():
             for led in sq.leds:
                 yield led
+
+    def led_rows(self):
+        return [[self.get_led_at_coord(x, y) for y in range(self.leds_max_y_coordinate)] for x in range(self.leds_max_x_coordinate)]
 
     def all_leds(self):
         return [l for l in self.iterate_leds()]
@@ -254,37 +255,67 @@ class Bloxl(object):
     def set_sq_color(self, coord_x=0, coord_y=0, color=0):
         self.get_sq_at_coord(coord_x, coord_y).blanket_color(color)
 
-    def step_right(self, x, y, max_x=None):
+    def step_down(self, x, y, max_x=None):
         return self.get_sq_at_coord(x+1, y, max_x=max_x)
 
-    def step_left(self, x, y, min_x=None):
+    def step_up(self, x, y, min_x=None):
         return self.get_sq_at_coord(x-1, y, min_x=min_x)
 
-    def step_down(self, x, y, max_y=None):
+    def step_right(self, x, y, max_y=None):
         return self.get_sq_at_coord(x, y+1, max_y=max_y)
 
-    def step_up(self, x, y, min_y=0):
+    def step_left(self, x, y, min_y=0):
         return self.get_sq_at_coord(x, y-1, min_y=min_y)
 
-    def step_led_right(self, x, y, max_x=None):
+    def step_led_down(self, x, y, max_x=None):
         return self.get_led_at_coord(x+1, y, max_x=max_x)
 
-    def step_led_left(self, x, y, min_x=None):
+    def step_led_up(self, x, y, min_x=None):
         return self.get_led_at_coord(x-1, y, min_x=min_x)
 
-    def step_led_down(self, x, y, max_y=None):
+    def step_led_right(self, x, y, max_y=None):
         return self.get_led_at_coord(x, y+1, max_y=max_y)
 
-    def step_led_up(self, x, y, min_y=0):
+    def step_led_left(self, x, y, min_y=0):
         return self.get_led_at_coord(x, y-1, min_y=min_y)
 
+    def can_step_down(self, x, y, max_x=None):
+        return self.legal_sq_coord(x+1, y, max_x=max_x)
+
+    def can_step_up(self, x, y, min_x=None):
+        return self.legal_sq_coord(x-1, y, min_x=min_x)
+
+    def can_step_right(self, x, y, max_y=None):
+        return self.legal_sq_coord(x, y+1, max_y=max_y)
+
+    def can_step_left(self, x, y, min_y=0):
+        return self.legal_sq_coord(x, y-1, min_y=min_y)
+
+    def can_step_led_down(self, x, y, max_x=None):
+        return self.legal_led_coord(x+1, y, max_x=max_x)
+
+    def can_step_led_up(self, x, y, min_x=None):
+        return self.legal_led_coord(x-1, y, min_x=min_x)
+
+    def can_step_led_right(self, x, y, max_y=None):
+        return self.legal_led_coord(x, y+1, max_y=max_y)
+
+    def can_step_led_left(self, x, y, min_y=0):
+        return self.legal_led_coord(x, y-1, min_y=min_y)
+
     def print_repr(self):
+        for i in self.led_rows():
+            for j in i:
+                print(j.str_repr(), end='')
+            print('\n', end='')
+'''
         x = 0
         for led in self.iterate_leds():
             # print(led.str_repr(), end='')
             if x % self.number_leds_per_row == 0:
                 print()
             x += 1
+'''
 
 
 def get_bloxl(bloxl):
@@ -301,13 +332,17 @@ class SqBlox(object):
 
     def __init__(self, rownum, colnum, number_leds=NUMBER_LEDS_PER_SQ, number_rows=NUMBER_ROWS_SQUARE):
 
+        self.rownum = rownum
+        self.colnum = colnum
+
         self.number_leds = number_leds
         self.number_rows = number_rows
         self.number_columns = self.number_leds // self.number_rows
 
         leds = []
         for x in range(self.number_rows):
-            for y in range(self.number_leds // self.number_rows):
+            for y in range(self.number_columns):
+            # for y in range(self.number_leds // self.number_rows):
                 new_led = LedBlox(rownum, colnum, x, y)
                 # new_led.hide()
                 leds.append(new_led)
@@ -315,6 +350,12 @@ class SqBlox(object):
 
         self.max_x_coordinate = self.number_columns - 1
         self.max_y_coordinate = self.number_rows - 1
+
+    def coords(self):
+        return self.rownum, self.colnum
+
+    def square_led_representation(self):
+        return [[self.get_led_at_coord(x, y) for y in range(self.number_columns)] for x in range(self.number_rows)]
 
     def legal_coord(self, x, y):
         return 0 <= x <= self.max_x_coordinate and 0 <= y <= self.max_y_coordinate
@@ -353,6 +394,12 @@ class SqBlox(object):
                 return True
         return False
 
+    def print_repr(self):
+        for i in self.square_led_representation():
+            for j in i:
+                print(j.str_repr(), end='')
+            print('\n', end='')
+
 
 class LedBlox(object):
 
@@ -369,6 +416,9 @@ class LedBlox(object):
 
         self.color_val = None
         self.set_color(color)
+
+    def coords(self):
+        return self.rownum, self.colnum
 
     def set_color(self, col=None):
         if color:
@@ -429,24 +479,65 @@ class LEDShape(object):
         self.pixels_to_update = pixels_to_update
         self.shape_type = 'leds'
 
-    def iterate_pixels(self, repeat_sequence=False):
-        for pixel in self.pixels_to_update:
-            yield pixel
-        if repeat_sequence:
-            while True:
-                for pixel in self.pixels_to_update:
+    def iterate_pixels(self, repeat_sequence=False, reversed_seq=False):
+        ptu = self.pixels_to_update
+        one_done = False
+        while repeat_sequence or not one_done:
+            if not reversed_seq:
+                for pixel in ptu:
                     yield pixel
+            else:
+                for pixel in reversed(ptu):
+                    yield pixel
+            one_done = True
 
-    def iterate_coordinates(self, repeat_sequence=False):
-        for pixel in self.iterate_pixels(repeat_sequence):
+    def iterate_coordinates(self, repeat_sequence=False, reversed_seq=False):
+        for pixel in self.iterate_pixels(repeat_sequence, reversed_seq=reversed_seq):
             yield pixel.coord_x, pixel.coord_y
+
+    @staticmethod
+    def create_pixel_change(x, y):
+        return PixelChange(coord_x=x, coord_y=y, grid_type='leds')
+
+    def append_coordinate_color(self, x, y, color_val=None):
+        pc = self.create_pixel_change(x, y)
+        if color_val:
+            pc.color = color_val
+            pc.pixels = None
+        self.pixels_to_update.append(pc)
+
+    def append_coordinate_pixels(self, x, y, pixel_val=None):
+        pc = self.create_pixel_change(x, y)
+        if pixel_val:
+            pc.pixels = pixel_val
+        self.pixels_to_update.append(pc)
+
+    def blanket_color(self, col):
+        for pixel in self.iterate_pixels():
+            pixel.color = col
+
+    def blanket_pixels(self, pixels):
+        for pixel in self.iterate_pixels():
+            pixel.pixels = pixels
+
+    def apply_color_sequence_sequentially(self, color_sequence, reversed_seq=False):
+        for pixel in self.iterate_pixels(reversed_seq=reversed_seq):
+            col = color_sequence.next_color_in_sequence()
+            if col:
+                pixel.color = col
+            else:
+                break
 
 
 class SquaresShape(LEDShape):
 
     def __init__(self, pixels_to_update=[]):
-        super(LEDShape, self).__init__(pixels_to_update)
+        super().__init__(pixels_to_update)
         self.shape_type = 'squares'
+
+    @staticmethod
+    def create_pixel_change(x, y):
+        return PixelChange(coord_x=x, coord_y=y, grid_type='squares')
 
 
 class ColorSequence(object):
@@ -522,8 +613,6 @@ class BloxlUpdate(object):
     ):
 
         self.bloxl = bloxl
-        if not bloxl:
-            self.bloxl = blank_bloxl()
         self.led_changes = led_changes
         self.square_changes = square_changes
         self.display = display
@@ -531,34 +620,41 @@ class BloxlUpdate(object):
         self.delay_before = delay_before
 
     def apply_bloxl_changes(self):
+        if not self.bloxl:
+            self.bloxl = blank_bloxl()
         if self.led_changes:
-            for led_change in self.led_changes:
+            for led_change in self.led_changes.iterate_pixels():
                 pixels = led_change.pixels
                 if pixels:
                     self.bloxl.set_led_pixels(led_change.coord_x, led_change.coord_y, led_change.pixels)
                 else:
-                    color = led_change.color
-                    if color:
-                        self.bloxl.set_led_pixels(led_change.coord_x, led_change.coord_y, wheel(color))
+                    col = led_change.color
+                    if col:
+                        self.bloxl.set_led_pixels(led_change.coord_x, led_change.coord_y, wheel(col))
         if self.square_changes:
-            for square_change in self.square_changes:
+            print(self.square_changes)
+            for square_change in self.square_changes.iterate_pixels():
                 pixels = square_change.pixels
                 if pixels:
-                    self.bloxl.set_sq_pixels(led_change.coord_x, led_change.coord_y, led_change.pixels)
+                    self.bloxl.set_sq_pixels(square_change.coord_x, square_change.coord_y, square_change.pixels)
                 else:
-                    color = led_change.color
-                    if color:
-                        self.bloxl.set_sq_pixels(wheel(color))
+                    col = square_change.color
+                    if col:
+                        self.bloxl.set_sq_pixels(square_change.coord_x, square_change.coord_y, wheel(col))
 
-    def put_pixels(self):
+
+    def put_pixels(self, put_pix=True, print_in_terminal=True):
 
         if self.delay_before:
             delay(self.delay_before)
 
         self.apply_bloxl_changes()
 
-        if self.display:
+        if put_pix:
             self.bloxl.put_pixels()
+
+        if print_in_terminal:
+            self.bloxl.print_repr()
 
         if self.delay_after:
             delay(self.delay_after)
@@ -621,7 +717,7 @@ class BloxlUpdateSequence(object):
             )
         return None
 
-    def yield_sequence(self):
+    def yield_sequence(self, repeat_sequence=False):
         if self.current_bloxl_update:
             yield self.current_bloxl_update
         updating = True
@@ -631,15 +727,19 @@ class BloxlUpdateSequence(object):
                 self.current_bloxl_update = next_update
                 yield next_update
             else:
-                updating = False
+                if repeat_sequence:
+                    for x in self.yield_sequence(repeat_sequence):
+                        yield x
+                else:
+                    updating = False
 
-    def display_sequence(self, max_time=None):
+    def display_sequence(self, max_time=None, put_pix=True, print_in_terminal=True, repeat_sequence=False):
         if not max_time:
             max_time = self.default_display_time
         t_end = time.time() + max_time
-        for bu in self.yield_sequence():
+        for bu in self.yield_sequence(repeat_sequence):
             self.current_bloxl_update = bu
-            self.put_pixels()
+            self.put_pixels(put_pix, print_in_terminal)
             if time.time() > t_end:
                 return 'Time Up'
         return 'Sequence Over'
@@ -649,9 +749,9 @@ class BloxlUpdateSequence(object):
             return self.color_sequences[0]
         return None
 
-    def put_pixels(self):
+    def put_pixels(self, put_pix=True, print_in_terminal=True):
         if self.current_bloxl_update:
-            self.current_bloxl_update.put_pixels()
+            self.current_bloxl_update.put_pixels(put_pix=put_pix, print_in_terminal=print_in_terminal)
 
 
 class BlanketColorSequence(BloxlUpdateSequence):
@@ -700,8 +800,60 @@ def fading_bloxl_update_sequence(starting_color=RANDOM_COLOR_MINIMUM, step_value
     )
 
 
+class SpiralSequence(BloxlUpdateSequence):
+
+    def yield_update(self, x_coord, y_coord):
+        self.spiral_squares.append_coordinate_color(x_coord, y_coord)
+        self.spiral_squares.apply_color_sequence_sequentially(self.color_sequences[0], reversed_seq=True)
+        self.sequence_number += 1
+        print("{0} {1}".format(x_coord, y_coord))
+        return BloxlUpdate(square_changes=self.spiral_squares)
+
+    def yield_sequence(self):
+
+        self.spiral_squares = SquaresShape()
+
+        b = Bloxl(hide=False)
+
+        x = 0
+        y = 0
+
+        filled_rows_top = 0
+        filled_rows_right = 0
+        filled_rows_bottom = 0
+        filled_rows_left = 0
+
+        while self.sequence_number < NUMBER_SQUARES:
+
+            while b.can_step_right(x, y, max_y=b.max_y_coordinate - filled_rows_right):
+                yield self.yield_update(x, y)
+                x, y = b.step_right(x, y).coords()
+            filled_rows_top += 1
+
+            while b.can_step_down(x, y, max_x=b.max_x_coordinate - filled_rows_bottom):
+                yield self.yield_update(x, y)
+                x, y = b.step_down(x, y).coords()
+            filled_rows_right += 1
+
+            while b.can_step_left(x, y, min_y=filled_rows_left):
+                yield self.yield_update(x, y)
+                x, y = b.step_left(x, y).coords()
+            filled_rows_bottom += 1
+
+            while b.can_step_up(x, y, min_x=filled_rows_top):
+                yield self.yield_update(x, y)
+                x, y = b.step_up(x, y).coords()
+            filled_rows_left += 1
+
+
+def fading_spiral_update_sequence(starting_color=RANDOM_COLOR_MINIMUM, step_value=1):
+    return SpiralSequence(
+        color_sequences=[get_fading_color_sequence(starting_color, step_value)]
+    )
+
+
 def test_func():
-    f = fading_bloxl_update_sequence()
+    f = fading_spiral_update_sequence()
     f.display_sequence()
 
 
