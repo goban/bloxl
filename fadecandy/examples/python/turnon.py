@@ -1,21 +1,16 @@
-try:
-    from .jeff import *
-except Exception: #ImportError
-    from jeff import *
-
-try:
-    from .Images2Blox import *
-except Exception: #ImportError
-    from Images2Blox import *
+from fadecandy.examples.python.jeff import *
+from fadecandy.examples.python.Images2Blox import *
 
 while True:
 
     b = blank_bloxl()
 
-    for i in range(10):
+    for i in range(3):
         test_func()
 
     b = blank_bloxl()
 
-    BlockImages4(3)
-    BlockImages3(5)
+    BlockImages4(1)
+    BlockImages3(1)
+    BlockImages4(1)
+    BlockImages3(1)
