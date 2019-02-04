@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
-import time, random, sys
+import time
+import random
+import sys
 from os import path
 from functools import reduce
 from unidecode import unidecode
