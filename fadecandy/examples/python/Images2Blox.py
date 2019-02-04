@@ -212,7 +212,7 @@ def RunAnimations(loopcount):
             folder_path + '/' + f,
             int(re.sub("\D", "", f)),
             open_img(folder_path + '/' + f)
-        ) for f in os.listdir(folder_path)].sort(lambda x: x[2])
+        ) for f in os.listdir(folder_path)].sort(key=lambda x: x[2])
 
         for file, filepath, _, arr in sort_images:
 
