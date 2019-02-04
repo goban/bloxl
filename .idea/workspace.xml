@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdb9367e-ac5f-46a7-9cb1-a5ee44992cab" name="Default Changelist" comment="added vcs">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fadecandy/examples/python/jeff.py" beforeDir="false" afterPath="$PROJECT_DIR$/fadecandy/examples/python/jeff.py" afterDir="false" />
     </list>
@@ -17,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/jeff.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22533">
-              <caret line="813" column="18" selection-start-line="813" selection-start-column="18" selection-end-line="813" selection-end-column="18" />
+            <state relative-caret-position="1219">
+              <caret line="694" column="49" lean-forward="true" selection-start-line="694" selection-start-column="49" selection-end-line="694" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -33,6 +32,25 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>yield_sequenc</find>
+      <find>hide=</find>
+      <find>self.pixels</find>
+      <find>can_step_right</find>
+      <find>grid_type</find>
+      <find>blank_bloxl</find>
+      <find>if not bloxl</find>
+      <find>WheelPos</find>
+      <find>spiral_squares</find>
+      <find>print(</find>
+      <find>translate</find>
+      <find>new_color</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>wheel_position</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -133,7 +151,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3180000" />
+    <option name="totallyTimeSpent" value="24469000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3840" height="2130" extended-state="6" />
@@ -198,8 +216,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/jeff.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22533">
-          <caret line="813" column="18" selection-start-line="813" selection-start-column="18" selection-end-line="813" selection-end-column="18" />
+        <state relative-caret-position="1219">
+          <caret line="694" column="49" lean-forward="true" selection-start-line="694" selection-start-column="49" selection-end-line="694" selection-end-column="49" />
         </state>
       </provider>
     </entry>
