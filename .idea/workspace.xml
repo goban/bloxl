@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bdb9367e-ac5f-46a7-9cb1-a5ee44992cab" name="Default Changelist" comment="added vcs">
+    <list default="true" id="bdb9367e-ac5f-46a7-9cb1-a5ee44992cab" name="Default Changelist" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;fadecandy/examples/python/jeff.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fadecandy/examples/python/jeff.py" beforeDir="false" afterPath="$PROJECT_DIR$/fadecandy/examples/python/jeff.py" afterDir="false" />
     </list>
@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/jeff.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1219">
-              <caret line="694" column="49" lean-forward="true" selection-start-line="694" selection-start-column="49" selection-end-line="694" selection-end-column="49" />
+            <state relative-caret-position="145">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -147,11 +147,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544698111124</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feb3">
+      <created>1549263835601</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1549263835601</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24469000" />
+    <option name="totallyTimeSpent" value="25382000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3840" height="2130" extended-state="6" />
@@ -186,7 +193,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added vcs" />
-    <option name="LAST_COMMIT_MESSAGE" value="added vcs" />
+    <MESSAGE value="feb3" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;fadecandy/examples/python/jeff.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;fadecandy/examples/python/jeff.py" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/fadecandy/examples/README.md">
@@ -216,8 +225,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/jeff.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1219">
-          <caret line="694" column="49" lean-forward="true" selection-start-line="694" selection-start-column="49" selection-end-line="694" selection-end-column="49" />
+        <state relative-caret-position="145">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>

@@ -6,7 +6,7 @@ from functools import reduce
 from unidecode import unidecode
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-from . import opc
+import opc
 
 from colr import color
 
