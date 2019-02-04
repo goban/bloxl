@@ -1,5 +1,5 @@
-from fadecandy.examples.python.jeff import *
-from fadecandy.examples.python.Images2Blox import *
+from jeff import *
+from Images2Blox import *
 
 while True:
 
