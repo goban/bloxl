@@ -197,7 +197,6 @@ def RunAnimations(loopcount):
     dirn = '/home/pi/src/bloxl/animations'
 
     def open_img(filepath):
-
         img = Image.open(filepath)
         img = img.convert('RGB')
         img = img.resize((40, 20), PIL.Image.ANTIALIAS)
@@ -213,7 +212,7 @@ def RunAnimations(loopcount):
             folder_path + '/' + f,
             int(re.sub("\D", "", f)),
             open_img(folder_path + '/' + f)
-        ) for f in os.listdir(folder_path)]
+        ) for f in os.listdir(folder_path)].sort(lambda x: x[2])
 
         for file, filepath, _, arr in sort_images:
 
@@ -223,7 +222,7 @@ def RunAnimations(loopcount):
                     pixels[grid[t][u]] = arr[t][u]
             print('###########################')
             client.put_pixels(pixels)
-            time.sleep(.2)
+            time.sleep(.1)
 
         '''
         MorphImages = []
