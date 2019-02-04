@@ -483,3 +483,4 @@ def run_pattern():
                 #blox0(1000)
 
 
+RunAnimations(55)
