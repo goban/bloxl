@@ -406,4 +406,3 @@ def run_pattern():
 				#blox0(1000)
 
 
-run_pattern()

@@ -5,6 +5,11 @@ from os import path
 from functools import reduce
 from unidecode import unidecode
 
+# for pil
+import PIL, numpy, os, os.path
+from PIL import Image
+from numpy import array
+
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import opc
 
@@ -349,7 +354,7 @@ def get_bloxl(bloxl):
 
 
 def blank_bloxl():
-    return Bloxl()
+    return Bloxl(hide_grid=True)
 
 
 class SqBlox(object):
