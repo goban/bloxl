@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import opc, time, random, PIL, numpy, os, os.path
+import opc, time, random, PIL, numpy, os, os.path, re
 from PIL import Image
 from numpy import array
 numLEDs = 800
@@ -190,6 +190,76 @@ def BlockImages4(loopcount):
             print('###########################')
             client.put_pixels(pixels)
             time.sleep(.2)
+
+
+def RunAnimations(loopcount):
+
+    dirn = '/home/pi/src/bloxl/animations'
+
+    def open_img(filepath):
+
+        img = Image.open(filepath)
+        img = img.convert('RGB')
+        img = img.resize((40, 20), PIL.Image.ANTIALIAS)
+        arr = array(img)
+        return arr
+
+    for folder in os.listdir(dirn):
+
+        folder_path = dirn + '/' + folder
+
+        sort_images = [(
+            f,
+            folder_path + '/' + f,
+            int(re.sub("\D", "", f)),
+            open_img(folder_path + '/' + f)
+        ) for f in os.listdir(folder_path)]
+
+        for file, filepath, _, arr in sort_images:
+
+            pixels = [(0, 0, 0)] * numLEDs
+            for t in range(20):
+                for u in range(40):
+                    pixels[grid[t][u]] = arr[t][u]
+            print('###########################')
+            client.put_pixels(pixels)
+            time.sleep(.2)
+
+        '''
+        MorphImages = []
+        NumFiles = len([name for name in os.listdir(dirn) if os.path.isfile(name)])
+        print(NumFiles)
+        for i in range(38):
+            if i < 10:
+                MorphImages.append(dirn + "/monday20" + str(i) + ".png")
+            else:
+                MorphImages.append(dirn + "/monday2" + str(i) + ".png")
+        print(MorphImages)
+        for picture in range(len(MorphImages)):
+            img = Image.open(MorphImages[picture])
+            img = img.convert('RGB')
+            img = img.resize((40, 20), PIL.Image.ANTIALIAS)
+            arr = array(img)
+
+            print('arr')
+            print(arr)
+            print()
+            print('grid')
+            print(grid)
+            print()
+
+            print()
+            pixels = [(0, 0, 0)] * numLEDs
+            for t in range(20):
+                for u in range(40):
+                    pixels[grid[t][u]] = arr[t][u]
+
+            print(pixels)
+
+            print('###########################')
+            client.put_pixels(pixels)
+            time.sleep(.2)
+        '''
             
             
             

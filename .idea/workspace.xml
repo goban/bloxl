@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdb9367e-ac5f-46a7-9cb1-a5ee44992cab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fadecandy/examples/python/Images2Blox.py" beforeDir="false" afterPath="$PROJECT_DIR$/fadecandy/examples/python/Images2Blox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fadecandy/examples/python/turnon.py" beforeDir="false" afterPath="$PROJECT_DIR$/fadecandy/examples/python/turnon.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,12 +14,12 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/jeff.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="393">
-                  <caret line="1076" column="16" selection-start-line="1076" selection-start-column="12" selection-end-line="1076" selection-end-column="16" />
+                <state relative-caret-position="288">
+                  <caret line="319" column="85" selection-start-line="319" selection-start-column="85" selection-end-line="319" selection-end-column="85" />
                   <folding>
                     <element signature="e#19#30#0" expanded="true" />
                   </folding>
@@ -33,7 +31,7 @@
             <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="174">
-                  <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+                  <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
                 </state>
               </provider>
             </entry>
@@ -41,15 +39,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/Images2Blox.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="36">
-                  <caret line="133" column="12" lean-forward="true" selection-start-line="133" selection-start-column="12" selection-end-line="133" selection-end-column="12" />
-                  <folding>
-                    <element signature="e#19#68#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="1082">
+                  <caret line="223" column="48" lean-forward="true" selection-start-line="223" selection-start-column="48" selection-end-line="223" selection-end-column="48" />
                 </state>
               </provider>
             </entry>
@@ -57,11 +52,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/turnon.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="87">
-                  <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-                  <folding>
-                    <element signature="e#0#44#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="58">
+                  <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
                 </state>
               </provider>
             </entry>
@@ -129,6 +121,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -158,7 +151,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -192,6 +184,7 @@
       <updated>1544697987272</updated>
       <workItem from="1544697996397" duration="982000" />
       <workItem from="1544700569124" duration="1719000" />
+      <workItem from="1549273798360" duration="724000" />
     </task>
     <task id="LOCAL-00001" summary="added vcs">
       <created>1544698111124</created>
@@ -235,11 +228,18 @@
       <option name="project" value="LOCAL" />
       <updated>1549270532036</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="images">
+      <created>1549271771446</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1549271771446</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29579000" />
+    <option name="totallyTimeSpent" value="31296000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3840" height="2130" extended-state="6" />
@@ -277,7 +277,8 @@
     <MESSAGE value="feb3" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;fadecandy/examples/python/jeff.py" />
     <MESSAGE value="imports" />
-    <option name="LAST_COMMIT_MESSAGE" value="imports" />
+    <MESSAGE value="images" />
+    <option name="LAST_COMMIT_MESSAGE" value="images" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/fadecandy/examples/README.md">
@@ -298,45 +299,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/turnon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/jeff.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="1076" column="16" selection-start-line="1076" selection-start-column="12" selection-end-line="1076" selection-end-column="16" />
+        <state relative-caret-position="288">
+          <caret line="319" column="85" selection-start-line="319" selection-start-column="85" selection-end-line="319" selection-end-column="85" />
           <folding>
             <element signature="e#19#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/Images2Blox.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="133" column="12" lean-forward="true" selection-start-line="133" selection-start-column="12" selection-end-line="133" selection-end-column="12" />
-          <folding>
-            <element signature="e#19#68#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="174">
+          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/Images2Blox.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1082">
+          <caret line="223" column="48" lean-forward="true" selection-start-line="223" selection-start-column="48" selection-end-line="223" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fadecandy/examples/python/turnon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
