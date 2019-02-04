@@ -1,8 +1,12 @@
-import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+try:
+    from .jeff import *
+except Exception: #ImportError
+    from jeff import *
 
-from .jeff import *
-from .Images2Blox import *
+try:
+    from .Images2Blox import *
+except Exception: #ImportError
+    from Images2Blox import *
 
 while True:
 
