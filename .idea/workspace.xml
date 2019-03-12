@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdb9367e-ac5f-46a7-9cb1-a5ee44992cab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test-all.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jeff.py" beforeDir="false" afterPath="$PROJECT_DIR$/jeff.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test-all.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="377">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -67,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jeff.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="1097" column="22" selection-start-line="1097" selection-start-column="22" selection-end-line="1097" selection-end-column="22" />
+            <state relative-caret-position="812">
+              <caret line="1008" column="29" lean-forward="true" selection-start-line="1008" selection-start-column="29" selection-end-line="1008" selection-end-column="29" />
               <folding>
                 <element signature="e#19#30#0" expanded="true" />
               </folding>
@@ -83,7 +82,7 @@
         <entry file="file://$PROJECT_DIR$/Images2Blox.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="493">
-              <caret line="196" column="24" lean-forward="true" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
+              <caret line="196" column="24" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -92,7 +91,7 @@
         <entry file="file://$PROJECT_DIR$/startup.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="116">
-              <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+              <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -151,11 +150,11 @@
         <option value="$PROJECT_DIR$/fadecandy/examples/python/turnon.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/fadecandy/examples/python/Images2Blox.py" />
-        <option value="$PROJECT_DIR$/jeff.py" />
         <option value="$PROJECT_DIR$/Images2Blox.py" />
         <option value="$PROJECT_DIR$/animate.py" />
         <option value="$PROJECT_DIR$/turnon.py" />
         <option value="$PROJECT_DIR$/test-all.py" />
+        <option value="$PROJECT_DIR$/jeff.py" />
       </list>
     </option>
   </component>
@@ -229,7 +228,7 @@
       <workItem from="1544700569124" duration="1719000" />
       <workItem from="1549273798360" duration="1104000" />
       <workItem from="1550720366271" duration="4530000" />
-      <workItem from="1552375432993" duration="5090000" />
+      <workItem from="1552375432993" duration="5329000" />
     </task>
     <task id="LOCAL-00001" summary="added vcs">
       <created>1544698111124</created>
@@ -298,7 +297,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41296000" />
+    <option name="totallyTimeSpent" value="41535000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3840" height="1958" extended-state="6" />
@@ -401,7 +400,7 @@
     <entry file="file://$PROJECT_DIR$/startup.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
-          <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -422,20 +421,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jeff.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="1097" column="22" selection-start-line="1097" selection-start-column="22" selection-end-line="1097" selection-end-column="22" />
-          <folding>
-            <element signature="e#19#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Images2Blox.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
-          <caret line="196" column="24" lean-forward="true" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
+          <caret line="196" column="24" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -459,9 +448,19 @@
     <entry file="file://$PROJECT_DIR$/test-all.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jeff.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="812">
+          <caret line="1008" column="29" lean-forward="true" selection-start-line="1008" selection-start-column="29" selection-end-line="1008" selection-end-column="29" />
+          <folding>
+            <element signature="e#19#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

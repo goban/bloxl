@@ -1006,7 +1006,7 @@ class BloxlUpdateSequence(object):
             self.current_bloxl_update.put_pixels(
                 put_pix=put_pix,
                 print_in_terminal=print_in_terminal,
-                delay=delay
+                # delay=delay
             )
 
 
