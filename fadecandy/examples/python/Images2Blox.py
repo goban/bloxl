@@ -209,12 +209,14 @@ def RunAnimations(loopcount=1, loop_delay=.05):
 
             folder_path = dirn + '/' + folder
 
-            sort_images = [(
-                f,
-                folder_path + '/' + f,
-                int(re.sub("\D", "", f)),
-                open_img(folder_path + '/' + f)
-            ) for f in os.listdir(folder_path)]
+            sort_images = [
+                (
+                    f,
+                    folder_path + '/' + f,
+                    int(re.sub("\D", "", f)),
+                    open_img(folder_path + '/' + f)
+                ) for f in os.listdir(folder_path)
+            ]
 
             print(folder)
 
@@ -231,7 +233,6 @@ def RunAnimations(loopcount=1, loop_delay=.05):
 
                 client.put_pixels(pixels)
                 time.sleep(loop_delay)
-
 
         '''
         MorphImages = []
@@ -268,8 +269,6 @@ def RunAnimations(loopcount=1, loop_delay=.05):
             client.put_pixels(pixels)
             time.sleep(.2)
         '''
-            
-            
             
 
 def Narrrloop2(loopcount):

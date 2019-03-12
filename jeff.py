@@ -5,17 +5,19 @@ import random
 import sys
 from os import path
 from functools import reduce
-from unidecode import unidecode
+# from unidecode import unidecode
 
-# for pil
-import PIL, numpy, os, os.path
-from PIL import Image
-from numpy import array
-
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import opc
 
 from colr import color
+
+# for pil
+# import PIL, numpy, os, os.path
+# from PIL import Image
+# from numpy import array
+
+
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 
 BLOXL_HOST = 'localhost'
@@ -61,18 +63,24 @@ WHEEL_DIVISIONS = [85, 170]
 
 def wheel(wheel_position):
     if not wheel_position:
-        # print(wheel_position)
         return HIDDEN_PIXEL
-    if wheel_position < WHEEL_DIVISIONS[0]:
-        col = ((wheel_position * 3), (WHEEL_MAXIMUM - wheel_position * 3), 0)
+    while wheel_position > WHEEL_MAXIMUM:
+        wheel_position -= WHEEL_MAXIMUM
+    while wheel_position < 0:
+        wheel_position + WHEEL_MAXIMUM
+    wp3 = wheel_position * 3
+    wp3m = WHEEL_MAXIMUM - wp3
+    wd0 = WHEEL_DIVISIONS[0]
+    wd1 = WHEEL_DIVISIONS[1]
+    if wheel_position < wd0:
+        return wp3, wp3m, 0
     else:
-        if wheel_position < WHEEL_DIVISIONS[1]:
-            wheel_position -= WHEEL_DIVISIONS[0]
-            col = ((WHEEL_MAXIMUM - wheel_position * 3), 0, (wheel_position * 3))
+        if wheel_position < wd1:
+            wheel_position -= wd0
+            return wp3m, 0, wp3
         else:
-            wheel_position -= WHEEL_DIVISIONS[1]
-            col = (0, (wheel_position * 3), (WHEEL_MAXIMUM - wheel_position * 3))
-    return col
+            wheel_position -= wd1
+            return 0, wp3, wp3m
 
 
 RANDOM_COLOR_MINIMUM = 1
@@ -865,9 +873,9 @@ class BloxlUpdate(object):
                     if col:
                         self.bloxl.set_sq_pixels(square_change.coord_x, square_change.coord_y, wheel(col))
 
-    def put_pixels(self, put_pix=True, print_in_terminal=True):
+    def put_pixels(self, put_pix=True, print_in_terminal=True, do_delay=True):
 
-        if self.delay_before:
+        if self.delay_before and do_delay:
             delay(self.delay_before)
 
         self.apply_bloxl_changes()
@@ -878,7 +886,7 @@ class BloxlUpdate(object):
         if print_in_terminal:
             self.bloxl.print_repr()
 
-        if self.delay_after:
+        if self.delay_after and do_delay:
             delay(self.delay_after)
 
 
@@ -983,7 +991,7 @@ class BloxlUpdateSequence(object):
         t_end = time.time() + max_time
         for bu in self.yield_sequence(repeat_sequence=repeat_sequence):
             self.current_bloxl_update = bu
-            self.put_pixels(put_pix, print_in_terminal)
+            self.put_pixels(put_pix, print_in_terminal, delay=False)
             if time.time() > t_end:
                 return 'Time Up'
         return 'Sequence Over'
@@ -993,9 +1001,13 @@ class BloxlUpdateSequence(object):
             return self.color_sequences[0]
         return None
 
-    def put_pixels(self, put_pix=True, print_in_terminal=True):
+    def put_pixels(self, put_pix=True, print_in_terminal=True, delay=True):
         if self.current_bloxl_update:
-            self.current_bloxl_update.put_pixels(put_pix=put_pix, print_in_terminal=print_in_terminal)
+            self.current_bloxl_update.put_pixels(
+                put_pix=put_pix,
+                print_in_terminal=print_in_terminal,
+                delay=delay
+            )
 
 
 class BlanketColorSequence(BloxlUpdateSequence):

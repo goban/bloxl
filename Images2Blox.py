@@ -194,7 +194,7 @@ def BlockImages4(loopcount):
 
 def RunAnimations(loopcount=1, loop_delay=.05):
 
-    dirn = '/home/pi/src/bloxl/animations'
+    dirn = '/home/pi/server_mounts/animations'
 
     def open_img(filepath):
         img = Image.open(filepath)
